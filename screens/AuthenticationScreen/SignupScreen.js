@@ -1,18 +1,12 @@
 import React, { Component } from "react";
 import {
   ScrollView,
-  Text,
-  Image,
   TextInput,
   StyleSheet,
   View,
   KeyboardAvoidingView
 } from "react-native";
 import Button from "../../components/Button";
-import {
-  Stitch,
-  UserPasswordAuthProviderClient
-} from "mongodb-stitch-react-native-sdk";
 import t from "tcomb-form-native";
 import { connect } from "react-redux";
 import { updateFormFields } from "../../reducers/signupReducer";

@@ -8,12 +8,10 @@ import {
 export function* verifyEmail({ form }) {
   try {
     const email = form.email;
-    console.log("EMAIL", form.email);
     // Check if valid Cornell email format
     const emailValid = email.match(/^([a-z]{1,3})([0-9]{1,3})+@(cornell.edu)$/)
       ? true
       : false;
-    console.log("EMAIL VALID", emailValid);
     if (!emailValid) {
       throw new Error("Invalid Cornell Email Format");
     }
@@ -26,7 +24,7 @@ export function* verifyEmail({ form }) {
   } catch (e) {
     yield put(
       verifyingEmailFailure({
-        email: email,
+        email: form.email,
         error: e.message
       })
     );
@@ -37,11 +35,10 @@ export function* verifyEmail({ form }) {
 export function* verifyFormFields({ payload }) {
   yield put({ type: types.VERIFYING_SIGNUP });
   const args = { form: payload };
-  const verificationStatuses = yield {
-    emailVerified: call(verifyEmail, args)
-  };
-  console.log(verificationStatuses);
-  const verified = verificationStatuses.emailVerified;
+  // const verificationStatuses = yield { emailVerified: call(verifyEmail, args) };
+  // const verified = verificationStatuses.emailVerified;
+  const verificationStatuses = yield call(verifyEmail, args);
+  const verified = verificationStatuses;
   return verified;
 }
 

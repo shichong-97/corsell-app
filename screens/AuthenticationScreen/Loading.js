@@ -20,11 +20,6 @@ export default class Loading extends Component {
     }
   }
 
-  //   componentDidMount() {
-  //     firebase.auth().onAuthStateChanged(user => {
-  //       this.props.navigation.navigate(user ? "Main" : "SignUp");
-  //     });
-  //   }
   render() {
     return (
       <View style={styles.container}>

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Platform, StatusBar, StyleSheet, View } from "react-native";
 import { AppLoading, Font, Icon } from "expo";
 import AppNavigator from "./navigation/AppNavigator";
-// import { Stitch, AnonymousCredential } from "mongodb-stitch-react-native-sdk";
 import { Provider } from "react-redux";
 import store from "./store";
 
@@ -13,13 +12,9 @@ export default class App extends Component {
       isLoadingComplete: false,
       client: null
     };
-    // this._loadClient = this._loadClient.bind(this);
   }
 
-  componentDidMount() {
-    // this._loadClient();
-    // console.log(this.state.client, "CLIENT");
-  }
+  componentDidMount() {}
 
   render() {
     const Root = () => {
@@ -66,11 +61,6 @@ export default class App extends Component {
   _handleFinishLoading = () => {
     this.setState({ isLoadingComplete: true });
   };
-
-  // _loadClient() {
-  //   const client = Stitch.initializeDefaultAppClient("corsell-app-test-brbmv");
-  //   this.setState({ client });
-  // }
 }
 
 const styles = StyleSheet.create({
