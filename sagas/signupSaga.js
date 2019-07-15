@@ -10,6 +10,11 @@ import {
 export function* verifyEmail({ form }) {
   try {
     const email = form.email;
+
+    if (email == "") {
+      throw new Error("Email field cannot be empty!");
+    }
+
     // Check if valid Cornell email format
     const emailValid = email.match(/^([a-z]{1,3})([0-9]{1,3})+@(cornell.edu)$/)
       ? true
@@ -38,6 +43,10 @@ export function* verifyPassword({ form }) {
   try {
     const password = form.password;
     const confirmPassword = form.confirmPassword;
+
+    if (password == "") {
+      throw new Error("Password field cannot be empty!");
+    }
 
     // Check if password is at least 8 characters, includes one lowercase, one uppercase, and one number
     const passwordValid = password.match(
