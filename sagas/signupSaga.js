@@ -1,11 +1,14 @@
 import { put, takeEvery, call, all } from "redux-saga/effects";
 import {
   types,
+  signupSuccess,
+  signupFailure,
   verifyingEmailSuccess,
   verifyingEmailFailure,
   verifyingPasswordSuccess,
   verifyingPasswordFailure
 } from "../reducers/signupReducer";
+var firebase = require("firebase/app");
 
 export function* verifyEmail({ form }) {
   try {
@@ -86,8 +89,25 @@ export function* verifyFormFields({ payload }) {
   });
   const verified =
     verificationStatuses.emailVerified && verificationStatuses.passwordVerified;
-
-  return verified;
+  if (verified) {
+    try {
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(payload.email, payload.password);
+      yield put(signupSuccess());
+      return true;
+    } catch (e) {
+      console.log("e.message", e.message);
+      console.log("e.code", e.code);
+      yield put(
+        signupFailure({
+          signupError: e.message,
+          signupErrorCode: e.code
+        })
+      );
+    }
+  }
+  return false;
 }
 
 export default [takeEvery(types.UPDATE_FORM_FIELDS, verifyFormFields)];

@@ -14,7 +14,12 @@ const initialState = {
   // yearVerified: false,
   // majorVerified: false
 
-  errorMessages: { email: "", password: "" }
+  errorMessages: { email: "", password: "" },
+
+  signupError: null,
+  signupErrorCode: null,
+  signupSuccess: false,
+  signupFailure: false
 };
 
 // Types
@@ -45,6 +50,20 @@ export default function reducer(state = initialState, action) {
         phone: event.phone,
         year: event.year,
         major: event.major
+      };
+    case types.SIGNUP_SUCCESS:
+      return {
+        ...state,
+        verifying: false,
+        signupSuccess: true,
+        signupFailure: false
+      };
+    case types.SIGNUP_FAILURE:
+      return {
+        ...state,
+        verifying: false,
+        signupSuccess: false,
+        signupFailure: true
       };
     case types.VERIFYING_SIGNUP:
       return {
@@ -117,6 +136,20 @@ export function verifyingPasswordFailure({ error, password }) {
     type: types.VERIFYING_PASSWORD_FAILURE,
     error,
     password
+  };
+}
+
+export function signupSuccess() {
+  return {
+    type: types.SIGNUP_SUCCESS
+  };
+}
+
+export function signupFailure({ signupError, signupErrorCode }) {
+  return {
+    type: types.SIGNUP_FAILURE,
+    signupError,
+    signupErrorCode
   };
 }
 
