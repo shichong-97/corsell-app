@@ -94,6 +94,20 @@ export function* verifyFormFields({ payload }) {
       firebase
         .auth()
         .createUserWithEmailAndPassword(payload.email, payload.password);
+
+      var db = firebase.firestore();
+      yield db.collection("userDetails").add({
+        email: payload.email,
+        username: payload.username
+        // name: payload.name,
+        // phone: payload.phone,
+        // major: payload.major,
+        // year: payload.year,
+        // address_one: payload.address_one,
+        // address_two: payload.address_two,
+        // terms: payload.terms
+      });
+
       yield put(signupSuccess());
       return true;
     } catch (e) {
