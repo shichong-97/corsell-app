@@ -21,6 +21,7 @@
     "expo-font": "^5.0.0",
     "expo-web-browser": "^5.0.0",
     "express": "^4.17.1",
+    "firebase": "^6.3.0",
     "moment": "^2.24.0",
     "mongodb-stitch-react-native-sdk": "^4.5.0",
     "react": "16.8.3",
@@ -30,11 +31,11 @@
     "react-native-swipeout": "^2.3.6",
     "react-native-web": "^0.11.4",
     "react-navigation": "^3.11.0",
-    "tcomb-form-native": "^0.6.20",
     "react-redux": "^5.1.1",
     "redux": "^4.0.0",
     "redux-devtools-extension": "^2.13.7",
-    "redux-saga": "^0.16.0"
+    "redux-saga": "^0.16.0",
+    "tcomb-form-native": "^0.6.20"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.1.0",

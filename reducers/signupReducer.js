@@ -14,7 +14,7 @@ const initialState = {
   // yearVerified: false,
   // majorVerified: false
 
-  errorMessages: []
+  errorMessages: { email: "", password: "" }
 };
 
 // Types
@@ -37,6 +37,7 @@ export default function reducer(state = initialState, action) {
       const event = action.payload;
       return {
         ...state,
+        errorMessages: { email: "", password: "" },
         email: event.email,
         password: event.password,
         confirmPassword: event.confirmPassword,
@@ -59,12 +60,24 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         emailVerified: false,
-        errorMessages: [
+        errorMessages: {
           ...state.errorMessages,
-          {
-            email: action.error //action.email
-          }
-        ]
+          email: action.error
+        }
+      };
+    case types.VERIFYING_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        passwordVerified: true
+      };
+    case types.VERIFYING_PASSWORD_FAILURE:
+      return {
+        ...state,
+        passwordVerified: false,
+        errorMessages: {
+          ...state.errorMessages,
+          password: action.error
+        }
       };
     default:
       return state;
@@ -86,10 +99,28 @@ export function verifyingEmailSuccess() {
 }
 
 export function verifyingEmailFailure({ error, email }) {
-  console.log("FAILURE");
   return {
     type: types.VERIFYING_EMAIL_FAILURE,
     error,
     email
   };
+}
+
+export function verifyingPasswordSuccess() {
+  return {
+    type: types.VERIFYING_PASSWORD_SUCCESS
+  };
+}
+
+export function verifyingPasswordFailure({ error, password }) {
+  return {
+    type: types.VERIFYING_PASSWORD_FAILURE,
+    error,
+    password
+  };
+}
+
+// Getters
+export function getErrorMessages(store) {
+  return store.errorMessages;
 }

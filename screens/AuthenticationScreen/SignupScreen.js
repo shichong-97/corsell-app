@@ -9,7 +9,10 @@ import {
 import Button from "../../components/Button";
 import t from "tcomb-form-native";
 import { connect } from "react-redux";
-import { updateFormFields } from "../../reducers/signupReducer";
+import {
+  updateFormFields,
+  getErrorMessages
+} from "../../reducers/signupReducer";
 import PropTypes from "prop-types";
 
 const Form = t.form.Form;
@@ -18,7 +21,7 @@ const User = t.struct({
   email: t.String,
   username: t.maybe(t.String),
   password: t.String,
-  confirmPassword: t.maybe(t.String),
+  confirmPassword: t.String,
   name: t.maybe(t.String),
   phone: t.maybe(t.String),
   year: t.maybe(t.String),
@@ -29,77 +32,42 @@ const User = t.struct({
 class SignupScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      email: null,
-      password: null,
-      confirmPassword: null,
-      phone: null
-    };
+    this.state = {};
     this.handleSignUp = this.handleSignUp.bind(this);
-    // this.handleEmailChange = this.handleEmailChange.bind(this);
-    // this.handlePasswordChange = this.handlePasswordChange.bind(this);
   }
-
-  // handleEmailChange(event) {
-  //   this.setState({ email: event.target.email });
-  // }
-
-  // handlePasswordChange(event) {
-  //   this.setState({ password: event.target.password });
-  // }
 
   handleSignUp() {
     const value = this._form.getValue();
-    console.log("value: ", value);
-
     this.props.updateFormFields(value);
-
-    // try {
-    //   let response = await fetch("http://192.168.1.3:3456/express_backend")
-    //     .then(console.log("SUCCESS"))
-    //     .catch(err => console.log(err));
-    //   console.log("RESPONSE", response);
-    //   let responseJson = await response.json();
-    //   console.log("DICKED SUCKED");
-    //   return responseJson;
-    // } catch (error) {
-    //   console.log("SUCK MY DICK");
-    //   console.error(error);
-    // }
   }
 
   render() {
+    let options = {
+      fields: {
+        email: {
+          hasError: this.props.errorMessages.email == "" ? false : true,
+          error: this.props.errorMessages.email
+        },
+        password: {
+          hasError: this.props.errorMessages.password == "" ? false : true,
+          error: this.props.errorMessages.password
+        },
+        confirmPassword: {
+          hasError:
+            this.props.errorMessages.password == "Passwords do not match",
+          error: this.props.errorMessages.password
+        },
+        terms: {
+          label: "Agree to Terms"
+        }
+      },
+      stylesheet: formStyles
+    };
+
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding">
         <ScrollView>
           <Form ref={c => (this._form = c)} type={User} options={options} />
-          {/* <View style={styles.form}>
-          {this.state.errorMessage && (
-            <Text style={{ color: "red" }}>{this.state.errorMessage}</Text>
-          )}
-          <TextInput
-            style={styles.input}
-            value={this.state.email}
-            onChangeText={text => this.setState({ email: text })}
-            placeholder="Email"
-          />
-          <TextInput
-            style={styles.input}
-            value={this.state.password}
-            onChangeText={text => this.setState({ password: text })}
-            placeholder="Password"
-          />
-          <TextInput
-            style={styles.input}
-            value={this.state.confirmPassword}
-            placeholder="Confirm Password"
-          />
-          <TextInput
-            style={styles.input}
-            value={this.state.phone}
-            placeholder="Phone Number"
-          />
-        </View> */}
           <Button label="Sign Up" onPress={this.handleSignUp} />
         </ScrollView>
       </KeyboardAvoidingView>
@@ -131,23 +99,6 @@ const styles = StyleSheet.create({
   }
 });
 
-const options = {
-  fields: {
-    email: {
-      error:
-        "Without an email address how are you going to reset your password when you forget it?"
-    },
-    password: {
-      error:
-        "Choose something you use on a dozen other sites or something you won't remember"
-    },
-    terms: {
-      label: "Agree to Terms"
-    }
-  },
-  stylesheet: formStyles
-};
-
 const formStyles = {
   ...Form.stylesheet,
   formGroup: {
@@ -172,12 +123,16 @@ const formStyles = {
   }
 };
 
+const mapStateToProps = store => ({
+  errorMessages: getErrorMessages(store.signupReducer)
+});
+
 const mapDispatchToProps = dispatch => ({
   updateFormFields: payload => dispatch(updateFormFields(payload))
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(SignupScreen);
 

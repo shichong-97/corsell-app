@@ -5,6 +5,24 @@ import AppNavigator from "./navigation/AppNavigator";
 import { Provider } from "react-redux";
 import store from "./store";
 
+// Firebase App (the core Firebase SDK) is always required and
+// must be listed before other Firebase SDKs
+var firebase = require("firebase/app");
+
+// Add the Firebase products that you want to use
+require("firebase/auth");
+require("firebase/firestore");
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAwEPXeL9ZA634FI60qE6ie1-VS2nQQGlI",
+  authDomain: "corsell-app-firebase.firebaseapp.com",
+  databaseURL: "https://corsell-app-firebase.firebaseio.com",
+  projectId: "corsell-app-firebase",
+  storageBucket: "",
+  messagingSenderId: "1016742205830",
+  appId: "1:1016742205830:web:35a643e26f0e1f02"
+};
+
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -14,7 +32,9 @@ export default class App extends Component {
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    firebase.initializeApp(firebaseConfig);
+  }
 
   render() {
     const Root = () => {
