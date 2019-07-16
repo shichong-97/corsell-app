@@ -39,7 +39,7 @@ class LoginScreen extends Component {
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding">
         <Image
-          source={require("../../assets/images/robot-dev.png")}
+          source={require("../../assets/images/corsell-logo.png")}
           style={styles.logo}
         />
         <View style={styles.form}>
