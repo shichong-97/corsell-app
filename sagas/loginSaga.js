@@ -1,46 +1,85 @@
-import { put, select, takeEvery } from "redux-saga/effects";
-import { delay } from "redux-saga";
-import { types } from "../reducers/loginReducer";
+import { put, takeEvery, call, all, takeLatest } from 'redux-saga/effects'
+import {
+  types,
+  loginSuccess,
+  loginFailure,
+  verifyingEmailSuccess,
+  verifyingEmailFailure,
+  verifyingPasswordSuccess,
+  verifyingPasswordFailure
+} from '../reducers/loginReducer'
+var firebase = require('firebase/app')
 
-function* syncUser() {
+export function * verifyLoginEmail ({ form }) {
   try {
-    // API session request. delay() to show loader.
-    yield delay(500);
-    // For now we just get the state from the persisted reducer.
-    const loggedIn = yield select(state => state.auth.loggedIn);
-    const user = yield select(state => state.auth.user);
+    const email = form.email
 
-    yield put({ type: types.SYNC_USER_SUCCESS, loggedIn, user });
-  } catch (error) {
-    yield put({ type: types.SYNC_USER_ERROR, error });
+    if (email == null) {
+      throw new Error('Email cannot be empty!')
+    }
+
+    yield put(verifyingEmailSuccess())
+    return true
+  } catch (e) {
+    yield put(
+      verifyingEmailFailure({
+        email: form.email,
+        error: e.message
+      })
+    )
+    return false
   }
 }
 
-function* login() {
+export function * verifyLoginPassword ({ form }) {
   try {
-    // API login request (email: action.email, password: action.password)
-    const user = {
-      name: "John",
-      lastname: "Doe"
-    };
+    const password = form.password
 
-    yield put({ type: types.LOGIN_SUCCESS, user });
-  } catch (error) {
-    yield put({ type: types.LOGIN_ERROR, error });
+    if (password == null) {
+      throw new Error('Password cannot be empty!')
+    }
+
+    yield put(verifyingPasswordSuccess())
+    return true
+  } catch (e) {
+    yield put(
+      verifyingPasswordFailure({
+        password: form.password,
+        error: e.message
+      })
+    )
+    return false
   }
 }
 
-function* logout() {
+export function * verifyLoginForm ({ payload }) {
+  yield put({ type: types.VERIFYING_LOGIN })
+  const args = { form: payload }
+  const verificationStatuses = yield all({
+    emailVerified: call(verifyLoginEmail, args),
+    passwordVerified: call(verifyLoginPassword, args)
+  })
+  const verified =
+    verificationStatuses.emailVerified && verificationStatuses.passwordVerified
+
   try {
-    // API logout request
-    yield put({ type: types.LOGOUT_SUCCESS });
-  } catch (error) {
-    yield put({ type: types.LOGOUT_ERROR, error });
+    if (!verified) {
+      throw new Error('Login Failure')
+    }
+
+    firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
+
+    yield put(loginSuccess())
+    return true
+  } catch (e) {
+    console.log('e.message', e.message)
+    yield put(
+      loginFailure({
+        loginError: e.message
+      })
+    )
+    return false
   }
 }
 
-export default [
-  takeEvery(types.SYNC_USER, syncUser),
-  takeEvery(types.LOGIN, login),
-  takeEvery(types.LOGOUT, logout)
-];
+export default [takeLatest(types.UPDATE_LOGIN_FIELDS, verifyLoginForm)]
