@@ -4,6 +4,7 @@ import { AppLoading, Font, Icon } from "expo";
 import AppNavigator from "./navigation/AppNavigator";
 import { Provider } from "react-redux";
 import store from "./store";
+import FlashMessage from "react-native-flash-message";
 
 // Firebase App (the core Firebase SDK) is always required and
 // must be listed before other Firebase SDKs
@@ -42,6 +43,7 @@ export default class App extends Component {
         <>
           {Platform.OS === "ios" && <StatusBar barStyle="default" />}
           <AppNavigator />
+          <FlashMessage position="top" />
         </>
       );
     };
