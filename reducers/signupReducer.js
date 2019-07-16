@@ -1,14 +1,14 @@
 export const initialState = {
   verifying: false,
   values: {
-    email: "",
-    password: "",
-    confirmPassword: "",
-    name: "",
-    username: "",
-    phone: "",
-    year: "",
-    major: ""
+    email: '',
+    password: '',
+    confirmPassword: '',
+    name: '',
+    username: '',
+    phone: '',
+    year: '',
+    major: ''
   },
   emailVerified: false,
   passwordVerified: false,
@@ -19,60 +19,60 @@ export const initialState = {
   majorVerified: false,
 
   errorMessages: {
-    email: "",
-    password: "",
-    username: "",
-    name: "",
-    phone: "",
-    year: "",
-    major: ""
+    email: '',
+    password: '',
+    username: '',
+    name: '',
+    phone: '',
+    year: '',
+    major: ''
   },
 
   signupError: null,
   signupErrorCode: null,
   signupSuccess: false,
   signupFailure: false
-};
+}
 
 // Types
 export const types = {
-  SIGNUP: "SIGNUP",
-  SIGNUP_SUCCESS: "SIGNUP_SUCCESS",
-  SIGNUP_FAILURE: "SIGNUP_FAILURE",
-  VERIFYING_SIGNUP: "VERIFYING_SIGNUP",
-  VERIFYING_EMAIL_SUCCESS: "VERIFYING_EMAIL_SUCCESS",
-  VERIFYING_EMAIL_FAILURE: "VERIFYING_EMAIL_FAILURE",
-  VERIFYING_PASSWORD_SUCCESS: "VERIFYING_PASSWORD_SUCCESS",
-  VERIFYING_PASSWORD_FAILURE: "VERIFYING_PASSWORD_FAILURE",
-  VERIFYING_NAME_SUCCESS: "VERIFYING_NAME_SUCCESS",
-  VERIFYING_NAME_FAILURE: "VERIFYING_NAME_FAILURE",
-  VERIFYING_USERNAME_SUCCESS: "VERIFYING_USERNAME_SUCCESS",
-  VERIFYING_USERNAME_FAILURE: "VERIFYING_USERNAME_FAILURE",
-  VERIFYING_PHONE_SUCCESS: "VERIFYING_PHONE_SUCCESS",
-  VERIFYING_PHONE_FAILURE: "VERIFYING_PHONE_FAILURE",
-  VERIFYING_YEAR_SUCCESS: "VERIFYING_YEAR_SUCCESS",
-  VERIFYING_YEAR_FAILURE: "VERIFYING_YEAR_FAILURE",
-  VERIFYING_MAJOR_SUCCESS: "VERIFYING_MAJOR_SUCCESS",
-  VERIFYING_MAJOR_FAILURE: "VERIFYING_MAJOR_FAILURE",
-  UPDATE_FORM_FIELDS: "UPDATE_FORM_FIELDS",
-  RESET_FORM: "RESET_FORM"
-};
+  SIGNUP: 'SIGNUP',
+  SIGNUP_SUCCESS: 'SIGNUP_SUCCESS',
+  SIGNUP_FAILURE: 'SIGNUP_FAILURE',
+  VERIFYING_SIGNUP: 'VERIFYING_SIGNUP',
+  VERIFYING_EMAIL_SUCCESS: 'VERIFYING_EMAIL_SUCCESS',
+  VERIFYING_EMAIL_FAILURE: 'VERIFYING_EMAIL_FAILURE',
+  VERIFYING_PASSWORD_SUCCESS: 'VERIFYING_PASSWORD_SUCCESS',
+  VERIFYING_PASSWORD_FAILURE: 'VERIFYING_PASSWORD_FAILURE',
+  VERIFYING_NAME_SUCCESS: 'VERIFYING_NAME_SUCCESS',
+  VERIFYING_NAME_FAILURE: 'VERIFYING_NAME_FAILURE',
+  VERIFYING_USERNAME_SUCCESS: 'VERIFYING_USERNAME_SUCCESS',
+  VERIFYING_USERNAME_FAILURE: 'VERIFYING_USERNAME_FAILURE',
+  VERIFYING_PHONE_SUCCESS: 'VERIFYING_PHONE_SUCCESS',
+  VERIFYING_PHONE_FAILURE: 'VERIFYING_PHONE_FAILURE',
+  VERIFYING_YEAR_SUCCESS: 'VERIFYING_YEAR_SUCCESS',
+  VERIFYING_YEAR_FAILURE: 'VERIFYING_YEAR_FAILURE',
+  VERIFYING_MAJOR_SUCCESS: 'VERIFYING_MAJOR_SUCCESS',
+  VERIFYING_MAJOR_FAILURE: 'VERIFYING_MAJOR_FAILURE',
+  UPDATE_FORM_FIELDS: 'UPDATE_FORM_FIELDS',
+  RESET_FORM_FIELDS: 'RESET_FORM_FIELDS'
+}
 
 // Reducers
-export default function reducer(state = initialState, action) {
+export default function reducer (state = initialState, action) {
   switch (action.type) {
     case types.UPDATE_FORM_FIELDS:
-      const event = action.payload;
+      const event = action.payload
       return {
         ...initialState,
         errorMessages: {
-          email: "",
-          password: "",
-          username: "",
-          name: "",
-          phone: "",
-          year: "",
-          major: ""
+          email: '',
+          password: '',
+          username: '',
+          name: '',
+          phone: '',
+          year: '',
+          major: ''
         },
         values: {
           email: event.email,
@@ -84,31 +84,31 @@ export default function reducer(state = initialState, action) {
           year: event.year,
           major: event.major
         }
-      };
+      }
     case types.SIGNUP_SUCCESS:
       return {
         ...state,
         verifying: false,
         signupSuccess: true,
         signupFailure: false
-      };
+      }
     case types.SIGNUP_FAILURE:
       return {
         ...state,
         verifying: false,
         signupSuccess: false,
         signupFailure: true
-      };
+      }
     case types.VERIFYING_SIGNUP:
       return {
         ...state,
         verifying: true
-      };
+      }
     case types.VERIFYING_EMAIL_SUCCESS:
       return {
         ...state,
         emailVerified: true
-      };
+      }
     case types.VERIFYING_EMAIL_FAILURE:
       return {
         ...state,
@@ -117,12 +117,12 @@ export default function reducer(state = initialState, action) {
           ...state.errorMessages,
           email: action.error
         }
-      };
+      }
     case types.VERIFYING_PASSWORD_SUCCESS:
       return {
         ...state,
         passwordVerified: true
-      };
+      }
     case types.VERIFYING_PASSWORD_FAILURE:
       return {
         ...state,
@@ -131,12 +131,12 @@ export default function reducer(state = initialState, action) {
           ...state.errorMessages,
           password: action.error
         }
-      };
+      }
     case types.VERIFYING_NAME_SUCCESS:
       return {
         ...state,
         nameVerified: true
-      };
+      }
     case types.VERIFYING_NAME_FAILURE:
       return {
         ...state,
@@ -145,12 +145,12 @@ export default function reducer(state = initialState, action) {
           ...state.errorMessages,
           name: action.error
         }
-      };
+      }
     case types.VERIFYING_USERNAME_SUCCESS:
       return {
         ...state,
         usernameVerified: true
-      };
+      }
     case types.VERIFYING_USERNAME_FAILURE:
       return {
         ...state,
@@ -159,12 +159,12 @@ export default function reducer(state = initialState, action) {
           ...state.errorMessages,
           username: action.error
         }
-      };
+      }
     case types.VERIFYING_PHONE_SUCCESS:
       return {
         ...state,
         phoneVerified: true
-      };
+      }
     case types.VERIFYING_PHONE_FAILURE:
       return {
         ...state,
@@ -173,12 +173,12 @@ export default function reducer(state = initialState, action) {
           ...state.errorMessages,
           phone: action.error
         }
-      };
+      }
     case types.VERIFYING_YEAR_SUCCESS:
       return {
         ...state,
         yearVerified: true
-      };
+      }
     case types.VERIFYING_YEAR_FAILURE:
       return {
         ...state,
@@ -187,12 +187,12 @@ export default function reducer(state = initialState, action) {
           ...state.errorMessages,
           year: action.error
         }
-      };
+      }
     case types.VERIFYING_MAJOR_SUCCESS:
       return {
         ...state,
         majorVerified: true
-      };
+      }
     case types.VERIFYING_MAJOR_FAILURE:
       return {
         ...state,
@@ -201,158 +201,156 @@ export default function reducer(state = initialState, action) {
           ...state.errorMessages,
           major: action.error
         }
-      };
-    case types.RESET_FORM:
+      }
+    case types.RESET_FORM_FIELDS:
       return {
         ...initialState,
         signupSuccess: true
-      };
+      }
     default:
-      return state;
+      return state
   }
 }
 
 // Actions
-export function updateFormFields(payload) {
+export function updateFormFields (payload) {
   return {
     type: types.UPDATE_FORM_FIELDS,
     payload
-  };
+  }
 }
 
-export function verifyingEmailSuccess() {
+export function verifyingEmailSuccess () {
   return {
     type: types.VERIFYING_EMAIL_SUCCESS
-  };
+  }
 }
 
-export function verifyingEmailFailure({ error, email }) {
+export function verifyingEmailFailure ({ error, email }) {
   return {
     type: types.VERIFYING_EMAIL_FAILURE,
     error,
     email
-  };
+  }
 }
 
-export function verifyingPasswordSuccess() {
+export function verifyingPasswordSuccess () {
   return {
     type: types.VERIFYING_PASSWORD_SUCCESS
-  };
+  }
 }
 
-export function verifyingPasswordFailure({ error, password }) {
+export function verifyingPasswordFailure ({ error, password }) {
   return {
     type: types.VERIFYING_PASSWORD_FAILURE,
     error,
     password
-  };
+  }
 }
 
-export function verifyingNameSuccess() {
+export function verifyingNameSuccess () {
   return {
     type: types.VERIFYING_NAME_SUCCESS
-  };
+  }
 }
 
-export function verifyingNameFailure({ error, name }) {
+export function verifyingNameFailure ({ error, name }) {
   return {
     type: types.VERIFYING_NAME_FAILURE,
     error,
     name
-  };
+  }
 }
 
-export function verifyingUsernameSuccess() {
+export function verifyingUsernameSuccess () {
   return {
     type: types.VERIFYING_USERNAME_SUCCESS
-  };
+  }
 }
 
-export function verifyingUsernameFailure({ error, username }) {
+export function verifyingUsernameFailure ({ error, username }) {
   return {
     type: types.VERIFYING_USERNAME_FAILURE,
     error,
     username
-  };
+  }
 }
 
-export function verifyingPhoneSuccess() {
+export function verifyingPhoneSuccess () {
   return {
     type: types.VERIFYING_PHONE_SUCCESS
-  };
+  }
 }
 
-export function verifyingPhoneFailure({ error, phone }) {
+export function verifyingPhoneFailure ({ error, phone }) {
   return {
     type: types.VERIFYING_PHONE_FAILURE,
     error,
     phone
-  };
+  }
 }
 
-export function verifyingYearSuccess() {
+export function verifyingYearSuccess () {
   return {
     type: types.VERIFYING_YEAR_SUCCESS
-  };
+  }
 }
 
-export function verifyingYearFailure({ error, year }) {
+export function verifyingYearFailure ({ error, year }) {
   return {
     type: types.VERIFYING_YEAR_FAILURE,
     error,
     year
-  };
+  }
 }
 
-export function verifyingMajorSuccess() {
+export function verifyingMajorSuccess () {
   return {
     type: types.VERIFYING_MAJOR_SUCCESS
-  };
+  }
 }
 
-export function verifyingMajorFailure({ error, major }) {
+export function verifyingMajorFailure ({ error, major }) {
   return {
     type: types.VERIFYING_MAJOR_FAILURE,
     error,
     major
-  };
+  }
 }
 
-export function signupSuccess() {
-  console.log("SIGNUP_SUCCESS");
+export function signupSuccess () {
   return {
     type: types.SIGNUP_SUCCESS
-  };
+  }
 }
 
-export function signupFailure({ signupError, signupErrorCode }) {
+export function signupFailure ({ signupError, signupErrorCode }) {
   return {
     type: types.SIGNUP_FAILURE,
     signupError,
     signupErrorCode
-  };
+  }
 }
 
-export function resetForm() {
+export function resetFormFields () {
   return {
-    type: types.RESET_FORM
-  };
+    type: types.RESET_FORM_FIELDS
+  }
 }
 
 // Getters
-export function getErrorMessages(store) {
-  return store.errorMessages;
+export function getErrorMessages (store) {
+  return store.errorMessages
 }
 
-export function getVerifying(store) {
-  return store.verifying;
+export function getVerifying (store) {
+  return store.verifying
 }
 
-export function getSuccess(store) {
-  console.log("SIGNUP SUCCESS", store.signupSuccess);
-  return store.signupSuccess;
+export function getSuccess (store) {
+  return store.signupSuccess
 }
 
-export function getFormValues(store) {
-  return store.values;
+export function getFormValues (store) {
+  return store.values
 }

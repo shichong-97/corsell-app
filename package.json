@@ -6,7 +6,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "test": "jest --watchAll"
+    "test": "jest --watchAll",
+    "format": "prettier-standard"
   },
   "jest": {
     "preset": "jest-expo"
@@ -41,7 +42,10 @@
   },
   "devDependencies": {
     "babel-preset-expo": "^5.1.0",
-    "jest-expo": "^33.0.0"
+    "eslint": "^6.0.1",
+    "eslint-plugin-react": "^7.14.2",
+    "jest-expo": "^33.0.0",
+    "prettier-standard": "^9.1.1"
   },
   "private": true
 }

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react'
 import {
   Text,
   Image,
@@ -6,23 +6,19 @@ import {
   View,
   Animated,
   KeyboardAvoidingView
-} from "react-native";
-import Button from "../../components/Button";
-import FormTextInput from "../../components/FormTextInput";
-import { connect } from "react-redux";
+} from 'react-native'
+import Button from '../../components/Button'
+import FormTextInput from '../../components/FormTextInput'
+import { connect } from 'react-redux'
 
 class LoginScreen extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      // TEMP
-      email: null,
-      password: null
-    };
-    this.handleLogin = this.handleLogin.bind(this);
+  state = {
+    // TEMP
+    email: null,
+    password: null
   }
 
-  handleLogin() {
+  handleLogin () {
     // this.state.client.auth
     //   .loginWithCredential(new AnonymousCredential())
     //   .then(user => {
@@ -35,53 +31,53 @@ class LoginScreen extends Component {
     //   });
   }
 
-  render() {
+  render () {
     return (
-      <KeyboardAvoidingView style={styles.container} behavior="padding">
+      <KeyboardAvoidingView style={styles.container} behavior='padding'>
         <Image
-          source={require("../../assets/images/corsell-logo.jpg")}
+          source={require('../../assets/images/corsell-logo.jpg')}
           style={styles.logo}
         />
         <View style={styles.form}>
           <FormTextInput
             value={this.state.email}
             onChangeText={email => this.setState({ email })}
-            placeholder="Email"
+            placeholder='Email'
           />
           <FormTextInput
             value={this.state.password}
             onChangeText={password => this.setState({ password })}
-            placeholder="Password"
+            placeholder='Password'
           />
-          <Button label="Login" onPress={this.handleLogin} />
+          <Button label='Login' onPress={this.handleLogin} />
         </View>
       </KeyboardAvoidingView>
-    );
+    )
   }
 }
 
 LoginScreen.navigationOptions = {
   header: null
-};
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "space-between"
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'space-between'
   },
   logo: {
     flex: 1,
-    width: "100%",
-    resizeMode: "contain",
-    alignSelf: "center"
+    width: '100%',
+    resizeMode: 'contain',
+    alignSelf: 'center'
   },
   form: {
     flex: 1,
-    justifyContent: "center",
-    width: "80%"
+    justifyContent: 'center',
+    width: '80%'
   }
-});
+})
 
-export default connect()(LoginScreen);
+export default connect()(LoginScreen)

@@ -1,4 +1,4 @@
-import { put, takeEvery, call, all, takeLatest } from "redux-saga/effects";
+import { put, takeEvery, call, all, takeLatest } from 'redux-saga/effects'
 import {
   types,
   signupSuccess,
@@ -17,158 +17,158 @@ import {
   verifyingYearFailure,
   verifyingMajorSuccess,
   verifyingMajorFailure
-} from "../reducers/signupReducer";
-var firebase = require("firebase/app");
+} from '../reducers/signupReducer'
+var firebase = require('firebase/app')
 
-export function* verifyName({ form }) {
+export function * verifyName ({ form }) {
   try {
-    const name = form.name;
+    const name = form.name
     if (name == null) {
-      throw new Error("Name cannot be empty!");
+      throw new Error('Name cannot be empty!')
     }
 
-    yield put(verifyingNameSuccess());
-    return true;
+    yield put(verifyingNameSuccess())
+    return true
   } catch (e) {
     yield put(
       verifyingNameFailure({
         name: form.name,
         error: e.message
       })
-    );
-    return false;
+    )
+    return false
   }
 }
 
-export function* verifyPhone({ form }) {
+export function * verifyPhone ({ form }) {
   try {
-    const phone = form.phone;
+    const phone = form.phone
     if (phone == null) {
-      throw new Error("Phone number cannot be empty!");
+      throw new Error('Phone number cannot be empty!')
     }
 
-    yield put(verifyingPhoneSuccess());
-    return true;
+    yield put(verifyingPhoneSuccess())
+    return true
   } catch (e) {
     yield put(
       verifyingPhoneFailure({
         phone: form.phone,
         error: e.message
       })
-    );
-    return false;
+    )
+    return false
   }
 }
 
-export function* verifyYear({ form }) {
+export function * verifyYear ({ form }) {
   try {
-    const year = form.year;
+    const year = form.year
     if (year == null) {
-      throw new Error("Graduation year cannot be empty!");
+      throw new Error('Graduation year cannot be empty!')
     }
 
     // Check if valid year format
-    const yearValid = year.match(/^[2][0][1-9]\d{1}$/) ? true : false;
+    const yearValid = year.match(/^[2][0][1-9]\d{1}$/) ? true : false
     if (!yearValid) {
-      throw new Error("Invalid Graduation Year Format");
+      throw new Error('Invalid Graduation Year Format')
     }
 
-    yield put(verifyingYearSuccess());
-    return true;
+    yield put(verifyingYearSuccess())
+    return true
   } catch (e) {
     yield put(
       verifyingYearFailure({
         year: form.year,
         error: e.message
       })
-    );
-    return false;
+    )
+    return false
   }
 }
 
-export function* verifyMajor({ form }) {
+export function * verifyMajor ({ form }) {
   try {
-    const major = form.major;
+    const major = form.major
     if (major == null) {
-      throw new Error("Major cannot be empty!");
+      throw new Error('Major cannot be empty!')
     }
 
-    yield put(verifyingMajorSuccess());
-    return true;
+    yield put(verifyingMajorSuccess())
+    return true
   } catch (e) {
     yield put(
       verifyingMajorFailure({
         major: form.major,
         error: e.message
       })
-    );
-    return false;
+    )
+    return false
   }
 }
 
-export function* verifyUsername({ form }) {
+export function * verifyUsername ({ form }) {
   try {
-    const username = form.username;
+    const username = form.username
     if (username == null) {
-      throw new Error("Username cannot be empty!");
+      throw new Error('Username cannot be empty!')
     }
 
     // Validate that username does not already exist against database
     // throw new Error("Username already exists!")
 
-    yield put(verifyingUsernameSuccess());
-    return true;
+    yield put(verifyingUsernameSuccess())
+    return true
   } catch (e) {
     yield put(
       verifyingUsernameFailure({
         username: form.username,
         error: e.message
       })
-    );
-    return false;
+    )
+    return false
   }
 }
 
-export function* verifyEmail({ form }) {
+export function * verifyEmail ({ form }) {
   try {
-    const email = form.email;
+    const email = form.email
 
     if (email == null) {
-      throw new Error("Email field cannot be empty!");
+      throw new Error('Email field cannot be empty!')
     }
 
     // Check if valid Cornell email format
     const emailValid = email.match(/^([a-z]{1,3})([0-9]{1,4})@(cornell.edu)$/)
       ? true
-      : false;
+      : false
     if (!emailValid) {
-      throw new Error("Invalid Cornell Email Format");
+      throw new Error('Invalid Cornell Email Format')
     }
 
     // Check if email already exists in database
     // throw new Error("Email already exists!")
 
     // Check if email address exists
-    yield put(verifyingEmailSuccess());
-    return true;
+    yield put(verifyingEmailSuccess())
+    return true
   } catch (e) {
     yield put(
       verifyingEmailFailure({
         email: form.email,
         error: e.message
       })
-    );
-    return false;
+    )
+    return false
   }
 }
 
-export function* verifyPassword({ form }) {
+export function * verifyPassword ({ form }) {
   try {
-    const password = form.password;
-    const confirmPassword = form.confirmPassword;
+    const password = form.password
+    const confirmPassword = form.confirmPassword
 
     if (password == null) {
-      throw new Error("Password cannot be empty!");
+      throw new Error('Password cannot be empty!')
     }
 
     // Check if password is at least 8 characters, includes one lowercase, one uppercase, and one number
@@ -176,33 +176,33 @@ export function* verifyPassword({ form }) {
       /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/
     )
       ? true
-      : false;
+      : false
     if (!passwordValid) {
       throw new Error(
-        "Password must contain at least 8 characters, include 1 lowercase letter, 1 uppercase letter, and 1 number"
-      );
+        'Password must contain at least 8 characters, include 1 lowercase letter, 1 uppercase letter, and 1 number'
+      )
     }
 
     // Check if passwords match
     if (password != confirmPassword) {
-      throw new Error("Passwords do not match");
+      throw new Error('Passwords do not match')
     }
-    yield put(verifyingPasswordSuccess());
-    return true;
+    yield put(verifyingPasswordSuccess())
+    return true
   } catch (e) {
     yield put(
       verifyingPasswordFailure({
         password: form.password,
         error: e.message
       })
-    );
-    return false;
+    )
+    return false
   }
 }
 
-export function* verifyFormFields({ payload }) {
-  yield put({ type: types.VERIFYING_SIGNUP });
-  const args = { form: payload };
+export function * verifyFormFields ({ payload }) {
+  yield put({ type: types.VERIFYING_SIGNUP })
+  const args = { form: payload }
   const verificationStatuses = yield all({
     emailVerified: call(verifyEmail, args),
     passwordVerified: call(verifyPassword, args),
@@ -211,7 +211,7 @@ export function* verifyFormFields({ payload }) {
     yearVerified: call(verifyYear, args),
     majorVerified: call(verifyMajor, args),
     usernameVerified: call(verifyUsername, args)
-  });
+  })
   const verified =
     verificationStatuses.emailVerified &&
     verificationStatuses.passwordVerified &&
@@ -219,20 +219,20 @@ export function* verifyFormFields({ payload }) {
     verificationStatuses.phoneVerified &&
     verificationStatuses.yearVerified &&
     verificationStatuses.majorVerified &&
-    verificationStatuses.usernameVerified;
+    verificationStatuses.usernameVerified
 
   try {
     if (!verified) {
-      console.log("SIGNUP_FAILURE");
-      throw new Error("Signup Failure");
+      console.log('SIGNUP_FAILURE')
+      throw new Error('Signup Failure')
     }
 
     firebase
       .auth()
-      .createUserWithEmailAndPassword(payload.email, payload.password);
+      .createUserWithEmailAndPassword(payload.email, payload.password)
 
-    var db = firebase.firestore();
-    db.collection("userDetails").add({
+    var db = firebase.firestore()
+    db.collection('userDetails').add({
       email: payload.email,
       username: payload.username,
       name: payload.name,
@@ -242,21 +242,21 @@ export function* verifyFormFields({ payload }) {
       // address_one: payload.address_one,
       // address_two: payload.address_two,
       // terms: payload.terms
-    });
+    })
 
-    yield put(signupSuccess());
-    return true;
+    yield put(signupSuccess())
+    return true
   } catch (e) {
-    console.log("e.message", e.message);
-    console.log("e.code", e.code);
+    console.log('e.message', e.message)
+    console.log('e.code', e.code)
     yield put(
       signupFailure({
         signupError: e.message,
         signupErrorCode: e.code
       })
-    );
-    return false;
+    )
+    return false
   }
 }
 
-export default [takeLatest(types.UPDATE_FORM_FIELDS, verifyFormFields)];
+export default [takeLatest(types.UPDATE_FORM_FIELDS, verifyFormFields)]
