@@ -134,7 +134,7 @@ export function * verifyEmail ({ form }) {
     const email = form.email
 
     if (email == null) {
-      throw new Error('Email field cannot be empty!')
+      throw new Error('Email cannot be empty!')
     }
 
     // Check if valid Cornell email format
@@ -223,7 +223,6 @@ export function * verifyFormFields ({ payload }) {
 
   try {
     if (!verified) {
-      console.log('SIGNUP_FAILURE')
       throw new Error('Signup Failure')
     }
 
@@ -247,8 +246,6 @@ export function * verifyFormFields ({ payload }) {
     yield put(signupSuccess())
     return true
   } catch (e) {
-    console.log('e.message', e.message)
-    console.log('e.code', e.code)
     yield put(
       signupFailure({
         signupError: e.message,
