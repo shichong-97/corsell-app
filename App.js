@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { Platform, StatusBar, StyleSheet, View } from "react-native";
 import { AppLoading, Font, Icon } from "expo";
-import AppNavigator from "./navigation/AppNavigator";
+import AuthNavigator from "./navigation/AuthNavigator";
 import { Provider } from "react-redux";
 import store from "./store";
 import FlashMessage from "react-native-flash-message";
+import MainTabNavigator from "./navigation/MainTabNavigator";
 
 // Firebase App (the core Firebase SDK) is always required and
 // must be listed before other Firebase SDKs
@@ -29,7 +30,8 @@ export default class App extends Component {
     super(props);
     this.state = {
       isLoadingComplete: false,
-      client: null
+      client: null,
+      loginSuccess: false
     };
   }
 
@@ -42,7 +44,13 @@ export default class App extends Component {
       return (
         <>
           {Platform.OS === "ios" && <StatusBar barStyle="default" />}
-          <AppNavigator />
+          {this.state.loginSuccess ? (
+            <MainTabNavigator />
+          ) : (
+            <AuthNavigator
+              onLoginCompleted={() => this.setState({ loginSuccess: true })}
+            />
+          )}
           <FlashMessage position="top" />
         </>
       );

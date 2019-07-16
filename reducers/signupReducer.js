@@ -319,7 +319,6 @@ export function verifyingMajorFailure({ error, major }) {
 }
 
 export function signupSuccess() {
-  console.log("SIGNUP_SUCCESS");
   return {
     type: types.SIGNUP_SUCCESS
   };
@@ -349,7 +348,6 @@ export function getVerifying(store) {
 }
 
 export function getSuccess(store) {
-  console.log("SIGNUP SUCCESS", store.signupSuccess);
   return store.signupSuccess;
 }
 

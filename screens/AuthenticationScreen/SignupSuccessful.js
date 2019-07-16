@@ -3,7 +3,6 @@ import { showMessage } from "react-native-flash-message";
 
 class SignupSuccessful extends Component {
   render() {
-    console.log(this.props.showMessage, "WHETHER TO RENDER");
     const successMessage = this.props.showMessage
       ? showMessage({
           message: "Signup Successful!",
