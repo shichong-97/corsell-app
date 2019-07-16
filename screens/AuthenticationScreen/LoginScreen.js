@@ -51,12 +51,12 @@ class LoginScreen extends Component {
       auto: 'none',
       fields: {
         email: {
-          hasError: this.props.errorMessages.email == '' ? false : true,
+          hasError: this.props.errorMessages.email != '',
           error: this.props.errorMessages.email,
           placeholder: 'Email'
         },
         password: {
-          hasError: this.props.errorMessages.password == '' ? false : true,
+          hasError: this.props.errorMessages.password != '',
           error: this.props.errorMessages.password,
           placeholder: 'Password'
         }

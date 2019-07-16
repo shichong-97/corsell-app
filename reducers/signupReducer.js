@@ -55,7 +55,7 @@ export const types = {
   VERIFYING_MAJOR_SUCCESS: 'VERIFYING_MAJOR_SUCCESS',
   VERIFYING_MAJOR_FAILURE: 'VERIFYING_MAJOR_FAILURE',
   UPDATE_FORM_FIELDS: 'UPDATE_FORM_FIELDS',
-  RESET_FORM_FIELDS: 'RESET_FORM_FIELDS'
+  RESET_FORM: 'RESET_FORM'
 }
 
 // Reducers
@@ -202,7 +202,7 @@ export default function reducer (state = initialState, action) {
           major: action.error
         }
       }
-    case types.RESET_FORM_FIELDS:
+    case types.RESET_FORM:
       return {
         ...initialState,
         signupSuccess: true
@@ -332,9 +332,9 @@ export function signupFailure ({ signupError, signupErrorCode }) {
   }
 }
 
-export function resetFormFields () {
+export function resetForm () {
   return {
-    type: types.RESET_FORM_FIELDS
+    type: types.RESET_FORM
   }
 }
 
